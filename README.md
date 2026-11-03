@@ -7,7 +7,6 @@
   <img src="https://img.shields.io/badge/version-0.1.3-38BDF8?style=flat-square&labelColor=0F172A" alt="version">
   <img src="https://img.shields.io/badge/license-MIT-2DD4BF?style=flat-square&labelColor=0F172A" alt="license">
   <img src="https://img.shields.io/badge/platform-win32--x64-94A3B8?style=flat-square&labelColor=0F172A" alt="platform">
-  <img src="https://img.shields.io/badge/runtime-Yan%20Node-94A3B8?style=flat-square&labelColor=0F172A" alt="runtime">
 </p>
 
 <p align="center">
@@ -51,13 +50,9 @@ Yan 自带的 `read`、`grep`、`glob` 面向代码与小文件。处理大文�
 
 ## 工作原理
 
-```mermaid
-flowchart LR
-    A["Yan Agent"] -->|"MCP over stdio"| B["server.cjs<br/>协议适配 · 路径边界 · 输出预算"]
-    B -->|"JSON-RPC"| C["dsh-ops-worker.exe<br/>Rust · 只读解析"]
-    C --> D[("Workspace")]
-    B -.->|"realpath 校验"| D
-```
+<p align="center">
+  <img src="assets/architecture.svg" alt="请求路径：Yan Agent → server.cjs → dsh-ops-worker.exe → 工作区" width="100%">
+</p>
 
 `server.cjs` 负责 MCP 协议、工作区边界和响应预算；`dsh-ops-worker.exe` 负责实际解析。路径会先规范化到真实路径再比较边界，交给 worker 的也是真实路径，因此工作区根是 junction 或符号链接时仍能正常工作。
 
