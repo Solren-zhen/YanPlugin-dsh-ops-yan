@@ -51,7 +51,7 @@ Yan 自带的 `read`、`grep`、`glob` 面向代码与小文件。处理大文�
 ## 工作原理
 
 <p align="center">
-  <img src="assets/architecture.svg?v=2" alt="请求路径：Yan Agent → server.cjs → dsh-ops-worker.exe → 工作区" width="100%">
+  <img src="assets/architecture-flow.svg" alt="请求路径：Yan Agent → server.cjs → dsh-ops-worker.exe → 工作区" width="100%">
 </p>
 
 `server.cjs` 负责 MCP 协议、工作区边界和响应预算；`dsh-ops-worker.exe` 负责实际解析。路径会先规范化到真实路径再比较边界，交给 worker 的也是真实路径，因此工作区根是 junction 或符号链接时仍能正常工作。
